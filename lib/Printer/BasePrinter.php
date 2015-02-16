@@ -18,7 +18,6 @@ abstract class BasePrinter implements PrinterInterface {
     public function __construct($address, $label = null) {
         $this->setAddress($address);
         $this->setLabel($label);
-        $this->uri = self::COUNT_URI;
     }
 
     /**
