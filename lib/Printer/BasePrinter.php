@@ -2,9 +2,9 @@
 namespace Printbot\Printer;
 use Sunra\PhpSimple\HtmlDomParser;
 
-class BasePrinter implements PrinterInterface {
+abstract class BasePrinter implements PrinterInterface {
 
-    const COUNT_URL = "";
+    const COUNT_URI = "";
 
     private $address;
     private $label;
@@ -18,6 +18,7 @@ class BasePrinter implements PrinterInterface {
     public function __construct($address, $label = null) {
         $this->setAddress($address);
         $this->setLabel($label);
+        $this->uri = self::COUNT_URI;
     }
 
     /**
@@ -25,7 +26,7 @@ class BasePrinter implements PrinterInterface {
      */
 
     public function getBW() {
-        return is_int($this->counts['bw']) 
+        return is_int($this->counts['bw'])
             ? $this->counts['bw']
             : $this->setBW(0);
     }
@@ -35,7 +36,7 @@ class BasePrinter implements PrinterInterface {
      */
 
     public function getColor() {
-        return is_int($this->counts['color']) 
+        return is_int($this->counts['color'])
             ? $this->counts['color']
             : $this->setColor(0);
     }
@@ -53,7 +54,10 @@ class BasePrinter implements PrinterInterface {
      */
 
     public function getDOM() {
-        $url = $this->address . self::COUNT_URL;
+        // in order to access the constant value from an extended class,
+        // we'll have to retrieve the class first
+        $c = get_called_class();
+        $url = $this->address . $c::COUNT_URI;
         $dom = @HtmlDomParser::file_get_html($url);
         return $dom;
     }
@@ -88,7 +92,9 @@ class BasePrinter implements PrinterInterface {
      */
 
     public function setAddress($address) {
-        $this->address = $address;
+        $this->address = preg_match("|https?://|", $address)
+                       ? $address
+                       : "http://" . $address;
     }
 
     /**
@@ -97,8 +103,8 @@ class BasePrinter implements PrinterInterface {
      */
 
     public function setBW($bwCount) {
-        return $this->counts['bw'] = is_int($bwCount) 
-                                   ? $bwCount 
+        return $this->counts['bw'] = is_int($bwCount)
+                                   ? $bwCount
                                    : intval($bwCount);
     }
 
@@ -108,8 +114,8 @@ class BasePrinter implements PrinterInterface {
      */
 
     public function setColor($colorCount) {
-        return $this->counts['color'] = is_int($colorCount) 
-                                      ? $colorCount 
+        return $this->counts['color'] = is_int($colorCount)
+                                      ? $colorCount
                                       : intval($colorCount);
     }
 

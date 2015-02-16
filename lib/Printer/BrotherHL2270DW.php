@@ -14,7 +14,8 @@ class BrotherHL2270DW extends BasePrinter {
             $selector = ".elemwhite";
             $elCollection = $dom->find($selector);
 
-            $countEl = $elCollection[4];
+            // grab the last element
+            $countEl = $elCollection[count($elCollection) - 1];
             $text = html_entity_decode($countEl->plaintext);
             
             $count = preg_replace("/[^\d]/", "", $text);

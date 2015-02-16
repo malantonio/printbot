@@ -13,8 +13,8 @@ class RicohAfficio8300DN extends BasePrinter {
         }
 
         $dom = $this->getDOM();
-
-        if ( !$dom ) { 
+        
+        if ( !$dom ) {
             $this->isOffline(true);
             return $this->setBW(0);
         } else {
@@ -29,7 +29,7 @@ class RicohAfficio8300DN extends BasePrinter {
 
             foreach($bingo->childNodes() as $td) {
                 $str .= htmlspecialchars_decode($td->plaintext);
-            } 
+            }
 
             $ex = explode(":", $str);
             return $this->setBW(intval($ex[1]));
