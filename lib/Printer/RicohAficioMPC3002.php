@@ -23,10 +23,10 @@ class RicohAficioMPC3002 extends BasePrinter {
             $copyBW = $els[6]->find('td');
             $copyColor = $els[7]->find('td');
 
-            $this->setPrintBW($printBW[3]->plaintext);
-            $this->setPrintColor($printColor[3]->plaintext);
-            $this->setCopyBW($copyBW[3]->plaintext);
-            $this->setCopyColor($copyColor[3]->plaintext);
+            $this->setPrintBW(intval($printBW[3]->plaintext));
+            $this->setPrintColor(intval($printColor[3]->plaintext));
+            $this->setCopyBW(intval($copyBW[3]->plaintext));
+            $this->setCopyColor(intval($copyColor[3]->plaintext));
         }
 
         return $this->counts;
@@ -50,7 +50,7 @@ class RicohAficioMPC3002 extends BasePrinter {
             $copyBW = $els[6]->find('td');
 
             $count = $copyBW[3]->plaintext;
-            return $this->setCopyBW($els[6]->find('td')[3]->plaintext);
+            return $this->setCopyBW(intval($count));
         }
     }
 
@@ -72,7 +72,7 @@ class RicohAficioMPC3002 extends BasePrinter {
             $copyColor = $els[7]->find('td');
 
             $count = $copyColor[3]->plaintext;
-            return $this->setCopyColor($count);
+            return $this->setCopyColor(intval($count));
         }
     }
 
