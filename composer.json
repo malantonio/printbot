@@ -1,5 +1,5 @@
 {
-    "name": "Printbot",
+    "name": "printbot/printbot",
     
     "require": {
         "sunra/php-simple-html-dom-parser": "1.5"
