@@ -24,8 +24,11 @@ class RicohAficioMP4002 extends BasePrinter {
 
             $els = $dom->find($selector);
 
-            $this->setCopyBW(intval($els[2]->find('td')[3]->plaintext));
-            $this->setPrintBW(intval($els[3]->find('td')[3]->plaintext));
+            $copyBW = $els[2]->find('td');
+            $printBW = $els[3]->find('td')
+
+            $this->setCopyBW(intval($copyBW[3]->plaintext));
+            $this->setPrintBW(intval($printBW[3]->plaintext));
             
             // no color options here
             $this->setPrintColor(0);
@@ -51,7 +54,9 @@ class RicohAficioMP4002 extends BasePrinter {
             $selector = '.staticProp';
 
             $els = $dom->find($selector);
-            $count = $els[2]->find('td')[3]->plaintext;
+            $copyBW = $els[2]->find('td');
+            
+            $count = $copyBW[3]->plaintext;
 
             return $this->setCopyBW(intval($count));
         }
@@ -73,7 +78,8 @@ class RicohAficioMP4002 extends BasePrinter {
             $selector = '.staticProp';
 
             $els = $dom->find($selector);
-            $count = $els[3]->find('td')[3]->plaintext;
+            $printBW = $els[3]->find('td');
+            $count = $printBW[3]->plaintext;
 
             return $this->setPrintBW(intval($count));
         }

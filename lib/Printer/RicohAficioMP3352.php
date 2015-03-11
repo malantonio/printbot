@@ -18,8 +18,11 @@ class RicohAficioMP3352 extends BasePrinter {
 
             $els = $dom->find($selector);
 
-            $this->setCopyBW($els[2]->find('td')[3]->plaintext);
-            $this->setPrintBW($els[3]->find('td')[3]->plaintext);
+            $copyBW = $els[2]->find('td');
+            $printBW = $els[3]->find('td');
+
+            $this->setCopyBW($copyBW[3]->plaintext);
+            $this->setPrintBW($printBW[3]->plaintext);
             
             // no color options here
             $this->setPrintColor(0);
@@ -45,8 +48,9 @@ class RicohAficioMP3352 extends BasePrinter {
             $selector = '.staticProp';
 
             $els = $dom->find($selector);
+            $copyBW = $els[2]->find('td');
 
-            return $this->setCopyBW($els[2]->find('td')[3]->plaintext);
+            return $this->setCopyBW($copyBW[3]->plaintext);
         }
     }
 
@@ -66,8 +70,9 @@ class RicohAficioMP3352 extends BasePrinter {
             $selector = '.staticProp';
 
             $els = $dom->find($selector);
+            $printBW = $els[3]->find('td');
 
-            return $this->setPrintBW($els[3]->find('td')[3]->plaintext);
+            return $this->setPrintBW($printBW[3]->plaintext);
         }
     }
 }

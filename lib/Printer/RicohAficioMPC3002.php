@@ -18,10 +18,15 @@ class RicohAficioMPC3002 extends BasePrinter {
 
             $els = $dom->find($selector);
 
-            $this->setPrintBW($els[2]->find('td')[3]->plaintext);
-            $this->setPrintColor($els[3]->find('td')[3]->plaintext);
-            $this->setCopyBW($els[6]->find('td')[3]->plaintext);
-            $this->setCopyColor($els[7]->find('td')[3]->plaintext);
+            $printBW = $els[2]->find('td');
+            $printColor = $els[3]->find('td');
+            $copyBW = $els[6]->find('td');
+            $copyColor = $els[7]->find('td');
+
+            $this->setPrintBW($printBW[3]->plaintext);
+            $this->setPrintColor($printColor[3]->plaintext);
+            $this->setCopyBW($copyBW[3]->plaintext);
+            $this->setCopyColor($copyColor[3]->plaintext);
         }
 
         return $this->counts;
@@ -42,8 +47,9 @@ class RicohAficioMPC3002 extends BasePrinter {
             $selector = '.staticProp';
 
             $els = $dom->find($selector);
-            
-            $count = $els[6]->find('td')[3]->plaintext;
+            $copyBW = $els[6]->find('td');
+
+            $count = $copyBW[3]->plaintext;
             return $this->setCopyBW($els[6]->find('td')[3]->plaintext);
         }
     }
@@ -63,8 +69,9 @@ class RicohAficioMPC3002 extends BasePrinter {
             $selector = '.staticProp';
 
             $els = $dom->find($selector);
-            
-            $count = $els[7]->find('td')[3]->plaintext;
+            $copyColor = $els[7]->find('td');
+
+            $count = $copyColor[3]->plaintext;
             return $this->setCopyColor($count);
         }
     }
@@ -83,7 +90,9 @@ class RicohAficioMPC3002 extends BasePrinter {
             $selector = '.staticProp';
             $els = $dom->find($selector);
 
-            $count = $els[2]->find('td')[3]->plaintext;
+            $printBW = $els[2]->find('td');
+
+            $count = $printBW[3]->plaintext;
             return $this->setPrintBW(intval($count));
         }
     }
@@ -102,7 +111,9 @@ class RicohAficioMPC3002 extends BasePrinter {
             $selector = '.staticProp';
             $els = $dom->find($selector);
 
-            $count = $els[3]->find('td')[3]->plaintext;
+            $printColor = $els[3]->find('td');
+
+            $count = $printColor[3]->plaintext;
             return $this->setPrintBW(intval($count));
         }
     }

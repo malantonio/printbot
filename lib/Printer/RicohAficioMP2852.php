@@ -10,7 +10,12 @@ class RicohAficioMP2852 extends BasePrinter {
         
         if ( !$dom ) {
             $this->isOffline(true);
-            return $this->setPrintBW(0);
+            
+            $this->setPrintBW(0);
+            $this->setPrintColor(0);
+            $this->setPrintColor(0);
+            $this->setCopyColor(0);
+            return false;
         } else {
             $this->isOffline(false);
         
@@ -18,8 +23,11 @@ class RicohAficioMP2852 extends BasePrinter {
 
             $els = $dom->find($selector);
 
-            $this->setCopyBW($els[2]->find('td')[3]->plaintext);
-            $this->setPrintBW($els[3]->find('td')[3]->plaintext);
+            $copyBW = $els[2]->find('td');
+            $printBW = $els[3]->find('td');
+
+            $this->setCopyBW($copyBW[3]->plaintext);
+            $this->setPrintBW($printBW[3]->plaintext);
             
             // no color options here
             $this->setPrintColor(0);
@@ -46,7 +54,9 @@ class RicohAficioMP2852 extends BasePrinter {
 
             $els = $dom->find($selector);
 
-            return $this->setCopyBW($els[2]->find('td')[3]->plaintext);
+            $copyBW = $els[2]->find('td');
+
+            return $this->setCopyBW($copyBW[3]->plaintext);
         }
     }
 
@@ -67,7 +77,9 @@ class RicohAficioMP2852 extends BasePrinter {
 
             $els = $dom->find($selector);
 
-            return $this->setPrintBW($els[3]->find('td')[3]->plaintext);
+            $printBW = $els[3]->find('td');
+
+            return $this->setPrintBW($printBW[3]->plaintext);
         }
     }
 }

@@ -25,9 +25,20 @@ class RicohAficio8300DN extends BasePrinter {
 
         $dom = $this->getDOM();
    
-        $selector = ".staticProp";
-        $els = $dom->find($selector);
+        if ( !$dom ) {
+            $this->isOffline(true);
+            
+            $this->setPrintBW(0);
+            return false;
+        } else {
 
-        return $this->setPrintBW($els[2]->find('td')[3]->plaintext);
+            $selector = ".staticProp";
+            $els = $dom->find($selector);
+
+            // grab the cells w/in the row
+            $printBW = $els[2]->find('td');
+
+            return $this->setPrintBW($printBW[3]->plaintext);
+        }
     }
 }

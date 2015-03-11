@@ -18,10 +18,15 @@ class RicohAficioMPC3502 extends BasePrinter {
 
             $els = $dom->find($selector);
 
-            $this->setCopyBW($els[2]->find('td')[3]->plaintext);
-            $this->setCopyColor($els[3]->find('td')[3]->plaintext);
-            $this->setPrintBW($els[6]->find('td')[3]->plaintext);
-            $this->setPrintColor($els[7]->find('td')[3]->plaintext);
+            $copyBW = $els[2]->find('td');
+            $copyColor = $els[3]->find('td');
+            $printBW = $els[6]->find('td');
+            $printColor = $els[7]->find('td');
+
+            $this->setCopyBW($copyBW[3]->plaintext);
+            $this->setCopyColor($copyColor[3]->plaintext);
+            $this->setPrintBW($printBW[3]->plaintext);
+            $this->setPrintColor($printColor[3]->plaintext);
         }
 
         return $this->counts;
@@ -42,8 +47,9 @@ class RicohAficioMPC3502 extends BasePrinter {
             $selector = '.staticProp';
 
             $els = $dom->find($selector);
+            $copyBW = $els[2]->find('td');
             
-            $count = $els[2]->find('td')[3]->plaintext;
+            $count = $copyBW[3]->plaintext;
             return $this->setCopyBW(intval($count));
         }
     }
@@ -63,8 +69,9 @@ class RicohAficioMPC3502 extends BasePrinter {
             $selector = '.staticProp';
 
             $els = $dom->find($selector);
-            
-            $count = $els[3]->find('td')[3]->plaintext;
+            $copyColor = $els[3]->find('td');
+
+            $count = $copyColor[3]->plaintext;
             return $this->setCopyColor($count);
         }
     }
@@ -82,8 +89,9 @@ class RicohAficioMPC3502 extends BasePrinter {
             $this->isOffline(false);
             $selector = '.staticProp';
             $els = $dom->find($selector);
+            $printBW = $els[6]->find('td');
 
-            $count = $els[6]->find('td')[3]->plaintext;
+            $count = $printBW[3]->plaintext;
             return $this->setPrintBW(intval($count));
         }
     }
@@ -101,8 +109,9 @@ class RicohAficioMPC3502 extends BasePrinter {
             $this->isOffline(false);
             $selector = '.staticProp';
             $els = $dom->find($selector);
-
-            $count = $els[7]->find('td')[3]->plaintext;
+            $printColor = $els[7]->find('td');
+            
+            $count = $printColor[3]->plaintext;
             return $this->setPrintBW(intval($count));
         }
     }
