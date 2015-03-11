@@ -11,8 +11,15 @@ abstract class BasePrinter implements PrinterInterface {
     private $offline = true;
 
     public $counts = array(
-        "bw"    => null,
-        "color" => null
+        "copy" => array(
+            "bw"    => null,
+            "color" => null
+        ),
+        
+        "print" => array(
+            "bw"    => null,
+            "color" => null
+        )
     );
 
     public function __construct($address, $label = null) {
@@ -24,28 +31,68 @@ abstract class BasePrinter implements PrinterInterface {
      *  @return int
      */
 
-    public function getBW() {
-        return is_int($this->counts['bw'])
-            ? $this->counts['bw']
-            : $this->setBW(0);
+    public function getCopyBW() {        
+        return is_int($this->counts['copy']['bw'])
+            ? $this->counts['copy']['bw']
+            : $this->setCopyBW(0);
     }
 
     /**
      *  @return int
      */
 
-    public function getColor() {
-        return is_int($this->counts['color'])
-            ? $this->counts['color']
-            : $this->setColor(0);
+    public function getPrintBW() {        
+        return is_int($this->counts['print']['bw'])
+            ? $this->counts['print']['bw']
+            : $this->setPrintBW(0);
+    }
+
+
+    /**
+     *  @return int
+     */
+
+    public function getCopyColor() {        
+        return is_int($this->counts['copy']['color'])
+            ? $this->counts['copy']['color']
+            : $this->setCopyColor(0);
     }
 
     /**
      *  @return int
      */
 
-    public function getCount() {
-        return $this->getBW() + $this->getColor();
+    public function getPrintColor() {        
+        return is_int($this->counts['print']['color'])
+            ? $this->counts['print']['color']
+            : $this->setPrintColor(0);
+    }
+
+    /**
+     *  @return int
+     */
+
+    public function getCopyTotal() {
+        return intval($this->getCopyColor())
+             + intval($this->getCopyBW());
+    }
+
+    /**
+     *  @return int
+     */
+
+    public function getPrintTotal() {
+        return intval($this->getPrintColor())
+             + intval($this->getPrintBW());
+    }
+
+    /**
+     *  @return int
+     */
+
+    public function getTotal() {
+        return intval($this->getCopyTotal())
+             + intval($this->getPrintTotal());
     }
 
     /**
@@ -101,10 +148,10 @@ abstract class BasePrinter implements PrinterInterface {
      *  @return int
      */
 
-    public function setBW($bwCount) {
-        return $this->counts['bw'] = is_int($bwCount)
-                                   ? $bwCount
-                                   : intval($bwCount);
+    public function setCopyBW($copyBWCount) {
+        return $this->counts['copy']['bw'] = is_int($copyBWCount)
+                                   ? $copyBWCount
+                                   : intval($copyBWCount);
     }
 
     /**
@@ -112,11 +159,34 @@ abstract class BasePrinter implements PrinterInterface {
      *  @return int
      */
 
-    public function setColor($colorCount) {
-        return $this->counts['color'] = is_int($colorCount)
-                                      ? $colorCount
-                                      : intval($colorCount);
+    public function setPrintBW($printBWCount) {
+        return $this->counts['print']['bw'] = is_int($printBWCount)
+                                   ? $printBWCount
+                                   : intval($printBWCount);
     }
+
+    /**
+     *  @param  int
+     *  @return int
+     */
+
+    public function setCopyColor($copyColorCount) {
+        return $this->counts['copy']['color'] = is_int($copyColorCount)
+                                   ? $copyColorCount
+                                   : intval($copyColorCount);
+    }
+
+    /**
+     *  @param  int
+     *  @return int
+     */
+
+    public function setPrintColor($printColorCount) {
+        return $this->counts['print']['color'] = is_int($printColorCount)
+                                   ? $printColorCount
+                                   : intval($printColorCount);
+    }
+
 
     /**
      *  @param string
