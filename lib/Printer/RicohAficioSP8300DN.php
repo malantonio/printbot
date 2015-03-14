@@ -1,7 +1,7 @@
 <?php
 namespace Printbot\Printer;
 
-class RicohAficio8300DN extends BasePrinter {
+class RicohAficioSP8300DN extends BasePrinter {
 
     const COUNT_URI = "/web/guest/en/websys/status/getUnificationCounter.cgi";
 
@@ -17,7 +17,6 @@ class RicohAficio8300DN extends BasePrinter {
     }
 
     public function getPrintBW() {
-
         // the default for each counts is null
         if ( is_int($this->counts['print']['bw']) ) {
             return $this->counts['print']['bw'];
@@ -31,7 +30,7 @@ class RicohAficio8300DN extends BasePrinter {
             $this->setPrintBW(0);
             return false;
         } else {
-
+            $tis->isOffline(false);
             $selector = ".staticProp";
             $els = $dom->find($selector);
 
