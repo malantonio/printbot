@@ -25,7 +25,7 @@ class RicohAficioMP4002 extends BasePrinter {
             $els = $dom->find($selector);
 
             $copyBW = $els[2]->find('td');
-            $printBW = $els[3]->find('td')
+            $printBW = $els[3]->find('td');
 
             $this->setCopyBW(intval($copyBW[3]->plaintext));
             $this->setPrintBW(intval($printBW[3]->plaintext));
