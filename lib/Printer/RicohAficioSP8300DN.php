@@ -30,7 +30,7 @@ class RicohAficioSP8300DN extends BasePrinter {
             $this->setPrintBW(0);
             return false;
         } else {
-            $tis->isOffline(false);
+            $this->isOffline(false);
             $selector = ".staticProp";
             $els = $dom->find($selector);
 
